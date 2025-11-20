@@ -1,87 +1,99 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl" class="scroll-smooth">
+<html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Systemize ERP & Tax - أقوى نظام ERP وفاتورة إلكترونية في الشرق الأوسط</title>
-  <meta name="description" content="كل ما تحتاجه لإدارة شركتك: CRM، محاسبة، مخزون، HR، فاتورة إلكترونية مصر والسعودية مدمجة من اليوم الأول"/>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Systemize ERP & Tax - Odoo Style</title>
+    <link rel="stylesheet" href="style.css">
+    </head>
+<body>
 
-  <!-- Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+    <header id="main-header">
+        <nav class="container">
+            <div class="logo">Systemize ERP</div>
+            
+            <ul class="nav-links">
+                <li><a href="#">المنتجات</a></li>
+                <li><a href="pricing.html">الأسعار</a></li>
+                <li><a href="#">الشركاء</a></li>
+                <li><a href="#">المدونة</a></li>
+            </ul>
+            
+            <div class="header-actions">
+                <a href="#" class="btn btn-secondary">تسجيل الدخول</a>
+                <a href="#" class="btn btn-primary">ابدأ مجاناً</a>
+            </div>
+            
+            <button class="menu-toggle" aria-label="Toggle menu">☰</button>
+        </nav>
+    </header>
 
-  <!-- CSS -->
-  <link rel="stylesheet" href="assets/css/style.css"/>
+    <section id="hero" class="section-padding">
+        <div class="container text-center">
+            <h1>أفضل نظام تخطيط موارد (ERP) في العالم. <br> الآن بين يديك!</h1>
+            <p class="lead">حلول متكاملة لإدارة أعمالك، الضرائب، والمخزون، مصممة خصيصاً لشركتك.</p>
+            <div class="hero-actions">
+                <a href="#" class="btn btn-cta btn-xl">ابدأ مجاناً الآن</a>
+                <a href="#" class="btn btn-watch-video">▶️ شاهد فيديو تقديمي</a>
+            </div>
+        </div>
+        <div class="hero-media-placeholder">
+            </div>
+    </section>
 
-  <style>
-    .light { --bg: #f8fafc; --text: #1e293b; background:#f8fafc; color:#1e293b; }
-    .light .glass { background:rgba(255,255,255,0.9); }
-    .light header { background:rgba(248,250,252,0.95); }
-  </style>
-</head>
-<body class="bg-[var(--bg)] text-[var(--text)]">
+    <section id="features" class="section-padding bg-light">
+        <div class="container">
+            <h2 class="text-center">كل ما تحتاجه في مكان واحد (تطبيقات Odoo)</h2>
+            <div class="feature-grid">
+                <div class="feature-card">المبيعات</div>
+                <div class="feature-card">المحاسبة</div>
+                <div class="feature-card">المخزون</div>
+                <div class="feature-card">الموارد البشرية</div>
+                <div class="feature-card">الموقع الإلكتروني</div>
+                <div class="feature-card">التصنيع</div>
+            </div>
+        </div>
+    </section>
 
-  <!-- Header -->
-  <header class="fixed top-0 w-full z-50 transition-all duration-500">
-    <div class="container mx-auto px-6 py-5 flex justify-between items-center">
-      <div class="text-4xl font-black">Systemize <span class="bg-gradient-to-r from-emerald-400 to-cyan-400 bg-clip-text text-transparent">ERP & Tax</span></div>
-      
-      <nav class="hidden lg:flex gap-10 text-lg font-semibold">
-        <a href="#apps" class="hover:text-cyan-400 transition">التطبيقات</a>
-        <a href="pricing.html" class="hover:text-cyan-400 transition">الأسعار</a>
-        <a href="#why" class="hover:text-cyan-400 transition">لماذا نحن</a>
-        <a href="#contact" class="hover:text-cyan-400 transition">تواصل</a>
-      </nav>
+    <section id="stats" class="section-padding">
+        <div class="container stats-grid">
+            <div class="stat-item"><h3>+7 مليون</h3><p>مستخدم حول العالم</p></div>
+            <div class="stat-item"><h3>+500</h3><p>مطور شريك</p></div>
+            <div class="stat-item"><h3>24/7</h3><p>دعم فني فوري</p></div>
+        </div>
+    </section>
 
-      <div class="flex items-center gap-4">
-        <button onclick="switchLang()" class="bg-white/10 backdrop-blur px-6 py-3 rounded-full font-bold">EN</button>
-        <button id="theme-toggle" onclick="toggleTheme()" class="bg-white/10 backdrop-blur p-4 rounded-full"><i class="fas fa-moon"></i></button>
-        <a href="#trial" class="confetti-trigger bg-gradient-to-r from-emerald-500 to-cyan-500 px-10 py-4 rounded-full text-xl font-bold shadow-2xl hover:scale-105 transition">جرب مجاناً</a>
-      </div>
-    </div>
-  </header>
 
-  <!-- Hero -->
-  <section class="hero relative min-h-screen flex items-center">
-    <video autoplay muted loop playsinline class="absolute inset-0 w-full h-full object-cover">
-      <source src="https://cdn.coverr.co/videos/coverr-abstract-digital-grid-2978/1080p.mp4" type="video/mp4">
-    </video>
+    <section id="pre-footer-cta" class="bg-primary text-white text-center">
+        <h2>حوّل أعمالك إلى نظام متكامل اليوم.</h2>
+        <a href="#" class="btn btn-cta btn-xl btn-white-border">ابدأ تجربتك المجانية</a>
+    </section>
 
-    <div class="container mx-auto px-6 text-center relative z-10 pt-32">
-      <h1 class="text-5xl md:text-7xl font-black mb-8 leading-tight">
-        كل أعمالك<br><span class="bg-gradient-to-r from-emerald-400 to-cyan-400 bg-clip-text text-transparent">في نظام واحد ذكي</span>
-      </h1>
-      <p class="text-2xl md:text-3xl mb-12 max-w-5xl mx-auto opacity-90 leading-relaxed">
-        CRM • مبيعات • محاسبة • مخزون • نقاط بيع • مشاريع • HR • فاتورة إلكترونية<br>
-        <span class="text-cyan-400 font-bold">مصر والسعودية مدمجة 100% من اليوم الأول</span>
-      </p>
-      <div class="flex flex-col md:flex-row gap-8 justify-center">
-        <a href="#trial" class="confetti-trigger btn-primary">ابدأ مجاناً الآن</a>
-        <a href="#" class="border-4 border-white px-20 py-7 rounded-full text-3xl font-bold hover:bg-white hover:text-black transition">شاهد الفيديو</a>
-      </div>
-    </div>
-  </section>
 
-  <!-- Confetti Zone -->
-  <section id="trial" class="confetti-zone py-32 text-center">
-    <h2 class="text-6xl font-black mb-10">مبروك! أنت على وشك تغيير شركتك للأبد</h2>
-    <p class="text-3xl">اضغط الزر الأخضر فوق وابدأ رحلتك</p>
-  </section>
+    <footer id="main-footer" class="bg-dark text-white section-padding">
+        <div class="container footer-grid">
+            <div class="footer-col logo-col">
+                <h3>Systemize ERP</h3>
+                <p>نظام متكامل، سهل، وفعال لجميع الشركات.</p>
+            </div>
+            <div class="footer-col">
+                <h4>المنتجات</h4>
+                <ul><li>CRM</li><li>مبيعات</li><li>المخزون</li></ul>
+            </div>
+            <div class="footer-col">
+                <h4>الشركة</h4>
+                <ul><li>من نحن</li><li>العملاء</li><li>الوظائف</li></ul>
+            </div>
+            <div class="footer-col">
+                <h4>الموارد</h4>
+                <ul><li>المدونة</li><li>الدعم</li><li>تواصل معنا</li></ul>
+            </div>
+        </div>
+        <div class="copyright text-center">
+            &copy; 2025 Systemize ERP. جميع الحقوق محفوظة.
+        </div>
+    </footer>
 
-  <!-- Mega Menu (مخفي وهيظهر لما تمرر على "التطبيقات") -->
-  <div id="mega-menu" class="mega-menu">
-    <div class="container mx-auto px-6 grid grid-cols-5 gap-8 text-white">
-      <div><h3 class="text-2xl font-bold mb-6 text-cyan-400">المبيعات</h3><ul class="space-y-3"><li>CRM</li><li>نقاط البيع</li><li>المبيعات</li></ul></div>
-      <div><h3 class="text-2xl font-bold mb-6 text-emerald-400">المالية</h3><ul class="space-y-3"><li>المحاسبة</li><li>الفواتير</li><li>المصروفات</li></ul></div>
-      <div><h3 class="text-2xl font-bold mb-6 text-purple-400">الموارد</h3><ul class="space-y-3"><li>الموظفين</li><li>الرواتب</li><li>الحضور</li></ul></div>
-      <div><h3 class="text-2xl font-bold mb-6 text-pink-400">المشاريع</h3><ul class="space-y-3"><li>إدارة المشاريع</li><li>المهام</li><li>التخطيط</li></ul></div>
-      <div><h3 class="text-2xl font-bold mb-6 text-yellow-400">أخرى</h3><ul class="space-y-3"><li>المخزون</li><li>التصنيع</li><li>التجارة الإلكترونية</li></ul></div>
-    </div>
-  </div>
-
-  <!-- Scripts -->
-  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
-  <script src="assets/js/app.js"></script>
+    <script src="app.js" defer></script>
 </body>
 </html>
