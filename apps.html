@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تطبيقات Systemize - Marketplace</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+
+    <header id="main-header">
+        <nav class="container">
+            <a href="index.html" class="logo">Systemize</a>
+            
+            <ul class="nav-links">
+                <li><a href="index.html#features">الميزات</a></li>
+                <li><a href="apps.html">التطبيقات</a></li>
+                <li><a href="pricing.html">الأسعار</a></li>
+                <li><a href="#">الشراكات</a></li>
+                <li><a href="#">تواصل معنا</a></li>
+            </ul>
+            
+            <div class="header-actions">
+                <a href="#" class="btn btn-secondary">تسجيل الدخول</a>
+                <a href="#" class="btn btn-primary">ابدأ مجاناً</a>
+            </div>
+
+            <button class="menu-toggle">☰</button>
+        </nav>
+    </header>
+
+    <section id="apps-marketplace" class="section-padding">
+        <div class="container">
+            <h2 class="text-center">سوق تطبيقات Systemize</h2>
+            <p class="lead text-center">أكثر من 50 تطبيقاً متكاملاً لإدارة كل جانب من جوانب عملك.</p>
+
+            <div class="apps-filter-bar">
+                <div class="filter-categories">
+                    <button class="filter-btn active" data-filter="all">الكل</button>
+                    <button class="filter-btn" data-filter="sales">المبيعات</button>
+                    <button class="filter-btn" data-filter="finance">المالية</button>
+                    <button class="filter-btn" data-filter="operations">العمليات</button>
+                    <button class="filter-btn" data-filter="hr">الموارد البشرية</button>
+                </div>
+                <div class="search-box">
+                    <i class="fas fa-search"></i>
+                    <input type="text" placeholder="ابحث عن تطبيق...">
+                </div>
+            </div>
+
+            <div class="apps-grid">
+                
+                <div class="app-card" data-category="sales">
+                    <div class="app-icon bg-primary-light"><i class="fas fa-handshake"></i></div>
+                    <h4>CRM (إدارة علاقات العملاء)</h4>
+                    <p class="app-description">تتبع العملاء المحتملين والصفقات، وزيادة معدلات التحويل.</p>
+                    <div class="app-meta">
+                        <span><i class="fas fa-users"></i> 1500+ مستخدم</span>
+                        <span><i class="fas fa-star"></i> 4.8 تقييم</span>
+                    </div>
+                    <a href="#" class="app-link">عرض التفاصيل</a>
+                </div>
+
+                <div class="app-card" data-category="finance">
+                    <div class="app-icon bg-secondary-light"><i class="fas fa-calculator"></i></div>
+                    <h4>المحاسبة</h4>
+                    <p class="app-description">إدارة الفواتير والقيود اليومية والتقارير المالية بدقة.</p>
+                    <div class="app-meta">
+                        <span><i class="fas fa-users"></i> 2000+ مستخدم</span>
+                        <span><i class="fas fa-star"></i> 4.9 تقييم</span>
+                    </div>
+                    <a href="#" class="app-link">عرض التفاصيل</a>
+                </div>
+                
+                <div class="app-card" data-category="operations">
+                    <div class="app-icon bg-cta-light"><i class="fas fa-warehouse"></i></div>
+                    <h4>إدارة المخزون</h4>
+                    <p class="app-description">تتبع حركة البضائع، وتحسين مستويات المخزون، وتقليل الهدر.</p>
+                    <div class="app-meta">
+                        <span><i class="fas fa-users"></i> 1200+ مستخدم</span>
+                        <span><i class="fas fa-star"></i> 4.7 تقييم</span>
+                    </div>
+                    <a href="#" class="app-link">عرض التفاصيل</a>
+                </div>
+                
+                <div class="app-card" data-category="hr">
+                    <div class="app-icon bg-primary-light"><i class="fas fa-user-friends"></i></div>
+                    <h4>الموارد البشرية</h4>
+                    <p class="app-description">إدارة شؤون الموظفين والإجازات والرواتب بسلاسة.</p>
+                    <div class="app-meta">
+                        <span><i class="fas fa-users"></i> 800+ مستخدم</span>
+                        <span><i class="fas fa-star"></i> 4.6 تقييم</span>
+                    </div>
+                    <a href="#" class="app-link">عرض التفاصيل</a>
+                </div>
+                
+                <div class="app-card" data-category="operations">
+                    <div class="app-icon bg-secondary-light"><i class="fas fa-project-diagram"></i></div>
+                    <h4>إدارة المشاريع</h4>
+                    <p class="app-description">تخطيط وتتبع المشاريع والمهام بكفاءة عالية.</p>
+                    <div class="app-meta">
+                        <span><i class="fas fa-users"></i> 1800+ مستخدم</span>
+                        <span><i class="fas fa-star"></i> 4.8 تقييم</span>
+                    </div>
+                    <a href="#" class="app-link">عرض التفاصيل</a>
+                </div>
+                
+                <div class="app-card" data-category="sales">
+                    <div class="app-icon bg-cta-light"><i class="fas fa-file-invoice-dollar"></i></div>
+                    <h4>نقاط البيع (POS)</h4>
+                    <p class="app-description">نظام مبيعات سريع ومتكامل للمتاجر والمطاعم.</p>
+                    <div class="app-meta">
+                        <span><i class="fas fa-users"></i> 1000+ مستخدم</span>
+                        <span><i class="fas fa-star"></i> 4.9 تقييم</span>
+                    </div>
+                    <a href="#" class="app-link">عرض التفاصيل</a>
+                </div>
+            </div>
+            
+        </div>
+    </section>
+    
+    <footer id="main-footer" class="bg-primary text-white">
+        <div class="container">
+            <div class="footer-grid">
+                
+                <div class="footer-col logo-col">
+                    <h3>Systemize</h3>
+                    <p>الحل المتكامل لإدارة موارد مؤسستك (ERP) وتوسيع أعمالك في أي وقت وأي مكان.</p>
+                </div>
+
+                <div class="footer-col">
+                    <h4>المنتجات</h4>
+                    <ul>
+                        <li><a href="#">CRM</a></li>
+                        <li><a href="#">المحاسبة</a></li>
+                        <li><a href="#">المخزون</a></li>
+                        <li><a href="#">الموارد البشرية</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-col">
+                    <h4>الشركة</h4>
+                    <ul>
+                        <li><a href="#">عن Systemize</a></li>
+                        <li><a href="#">الوظائف</a></li>
+                        <li><a href="#">المدونة</a></li>
+                        <li><a href="#">تواصل معنا</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-col">
+                    <h4>الدعم</h4>
+                    <ul>
+                        <li><a href="#">مركز المساعدة</a></li>
+                        <li><a href="#">الأسئلة الشائعة</a></li>
+                        <li><a href="#">سياسة الخصوصية</a></li>
+                        <li><a href="#">شروط الخدمة</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="text-center copyright">
+                <p>&copy; 2025 Systemize. جميع الحقوق محفوظة.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="app.js"></script>
+</body>
+</html>
