@@ -95,6 +95,61 @@ if (filterButtons.length > 0 && appCards.length > 0) {
         });
     });
 }
+// =====================================
+// 4. منطق البحث في التطبيقات والمدونة (Search Logic)
+// =====================================
+
+// تحديد مربعات البحث في كلا الصفحتين
+const searchInputs = document.querySelectorAll('.search-box input');
+
+searchInputs.forEach(input => {
+    input.addEventListener('keyup', (e) => {
+        const searchTerm = e.target.value.toLowerCase();
+        
+        // التحقق مما إذا كنا في صفحة التطبيقات
+        if (document.getElementById('apps-marketplace')) {
+            filterAppCards(searchTerm);
+        } 
+        // التحقق مما إذا كنا في صفحة المدونة
+        else if (document.getElementById('blog-page')) {
+            filterBlogPosts(searchTerm);
+        }
+    });
+});
+
+// وظيفة فلترة بطاقات التطبيقات حسب كلمة البحث
+function filterAppCards(term) {
+    const appCards = document.querySelectorAll('.app-card');
+    
+    appCards.forEach(card => {
+        // البحث في عنوان التطبيق والوصف
+        const title = card.querySelector('h4').textContent.toLowerCase();
+        const description = card.querySelector('.app-description').textContent.toLowerCase();
+        
+        if (title.includes(term) || description.includes(term)) {
+            card.style.display = 'block';
+        } else {
+            card.style.display = 'none';
+        }
+    });
+}
+
+// وظيفة فلترة مقالات المدونة حسب كلمة البحث
+function filterBlogPosts(term) {
+    const blogPosts = document.querySelectorAll('.blog-post-card');
+    
+    blogPosts.forEach(post => {
+        // البحث في عنوان المقال والمقتطف
+        const title = post.querySelector('h3 a').textContent.toLowerCase();
+        const excerpt = post.querySelector('.post-excerpt').textContent.toLowerCase();
+        
+        if (title.includes(term) || excerpt.includes(term)) {
+            post.style.display = 'flex'; // استخدام display: flex لأن هذا هو التنسيق الأصلي لبطاقة المقال
+        } else {
+            post.style.display = 'none';
+        }
+    });
+}
 
 // =====================================
 // ملاحظة: لكي يعمل هذا المنطق، يجب أن يحتوي HTML على القيم الأولية الصحيحة
