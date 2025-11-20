@@ -1254,3 +1254,43 @@ ul {
     }
     
 }
+/*
+====================================
+21. تنسيقات دعم اللغة الإنجليزية (LTR)
+====================================
+*/
+
+/* تغيير اتجاه القائمة عند التبديل إلى LTR */
+body.ltr-mode #main-header .nav-links {
+    padding-right: 0;
+    padding-left: 20px;
+    margin-right: 0; /* إلغاء التهميش لليمين */
+}
+
+/* في وضع LTR، نقل الأكشنز (تسجيل الدخول) إلى اليسار */
+body.ltr-mode #main-header .header-actions {
+    margin-left: auto; 
+    margin-right: 20px; /* المسافة بين الروابط والأكشنز */
+}
+
+/* في وضع LTR، يتم نقل اللوجو إلى اليسار */
+body.ltr-mode #main-header .logo {
+    margin-right: 0; 
+    margin-left: auto;
+}
+
+/* في وضع LTR، يجب أن يكون النص محاذياً لليسار بشكل عام */
+body.ltr-mode .container,
+body.ltr-mode .text-center,
+body.ltr-mode .lead {
+    text-align: left !important;
+}
+
+/* تعديل موقع البحث في صفحة التطبيقات */
+body.ltr-mode .apps-filter-bar .search-box i {
+    right: auto;
+    left: 15px; /* وضع الأيقونة على اليسار */
+}
+body.ltr-mode .apps-filter-bar .search-box input {
+    padding: 10px 40px 10px 10px; /* زيادة المساحة لليسار */
+}

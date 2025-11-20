@@ -5,7 +5,6 @@ const menuToggle = document.querySelector('.menu-toggle');
 const navLinks = document.querySelector('.nav-links');
 const header = document.getElementById('main-header');
 
-// منطق فتح/إغلاق القائمة
 if (menuToggle && navLinks) {
     menuToggle.addEventListener('click', () => {
         navLinks.classList.toggle('active');
@@ -14,118 +13,102 @@ if (menuToggle && navLinks) {
 }
 
 // منطق شريط التنقل الثابت (Sticky Header Scroll Logic)
-window.addEventListener('scroll', () => {
-    if (window.scrollY > 50) {
-        header.classList.add('scrolled');
-    } else {
-        header.classList.remove('scrolled');
-    }
-});
+if (header) {
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 50) {
+            header.classList.add('scrolled');
+        } else {
+            header.classList.remove('scrolled');
+        }
+    });
+}
+
 
 // =====================================
 // 2. منطق تبديل الأسعار (Pricing Toggle Logic) - لصفحة pricing.html
 // =====================================
-
-// تحديد العناصر
 const priceSwitch = document.querySelector('.pricing-toggle input[type="checkbox"]');
 const priceValues = document.querySelectorAll('.price-value .value');
 const pricePeriods = document.querySelectorAll('.price-value .period');
 const monthlyToggle = document.querySelector('.monthly');
 const yearlyToggle = document.querySelector('.yearly');
 
-// أسعار الخطة القياسية والمؤسسات (يجب أن تتطابق مع قيم HTML)
-// الشهرية (150 و 250)
 const monthlyPrices = [0, 150, 250];
-// السنوية (20% خصم تقريبي)
-// 150 * 12 * 0.8 = 1440 / 12 = 120 (سعر شهري في الخطة السنوية)
-// 250 * 12 * 0.8 = 2400 / 12 = 200 (سعر شهري في الخطة السنوية)
 const yearlyPrices = [0, 120, 200]; 
-
 
 if (priceSwitch) {
     priceSwitch.addEventListener('change', function() {
         const isYearly = this.checked;
         
-        // تحديث الـ Toggle Appearance (شهرياً/سنوياً)
         monthlyToggle.classList.toggle('active-toggle', !isYearly);
         yearlyToggle.classList.toggle('active-toggle', isYearly);
 
-        // تحديث الأسعار
         priceValues.forEach((valueElement, index) => {
-            // تحديث قيمة السعر
             valueElement.textContent = isYearly ? yearlyPrices[index] : monthlyPrices[index];
         });
 
-        // تحديث فترة السعر
         pricePeriods.forEach(periodElement => {
             periodElement.textContent = isYearly ? '/ مستخدم / سنوياً' : '/ مستخدم / شهرياً';
         });
         
         // تعديل الخطة المجانية التي هي مجانية دائماً
-        pricePeriods[0].textContent = '/ شهرياً';
+        if (pricePeriods[0]) {
+            pricePeriods[0].textContent = '/ شهرياً';
+        }
     });
 }
+
+
 // =====================================
 // 3. منطق فلترة التطبيقات (Apps Marketplace Filtering)
 // =====================================
-
 const filterButtons = document.querySelectorAll('.filter-btn');
 const appCards = document.querySelectorAll('.app-card');
 
 if (filterButtons.length > 0 && appCards.length > 0) {
     filterButtons.forEach(button => {
         button.addEventListener('click', () => {
-            // 1. إزالة التفعيل من جميع الأزرار وتفعيل الزر الحالي
             filterButtons.forEach(btn => btn.classList.remove('active'));
             button.classList.add('active');
 
-            // 2. الحصول على فئة الفلتر المستهدفة
             const filterValue = button.getAttribute('data-filter');
 
-            // 3. فلترة بطاقات التطبيقات
             appCards.forEach(card => {
                 const category = card.getAttribute('data-category');
                 
                 if (filterValue === 'all' || category === filterValue) {
-                    card.style.display = 'block'; // إظهار البطاقة
+                    card.style.display = 'block';
                 } else {
-                    card.style.display = 'none'; // إخفاء البطاقة
+                    card.style.display = 'none';
                 }
             });
         });
     });
 }
+
+
 // =====================================
 // 4. منطق البحث في التطبيقات والمدونة (Search Logic)
 // =====================================
-
-// تحديد مربعات البحث في كلا الصفحتين
 const searchInputs = document.querySelectorAll('.search-box input');
 
 searchInputs.forEach(input => {
     input.addEventListener('keyup', (e) => {
         const searchTerm = e.target.value.toLowerCase();
         
-        // التحقق مما إذا كنا في صفحة التطبيقات
         if (document.getElementById('apps-marketplace')) {
             filterAppCards(searchTerm);
-        } 
-        // التحقق مما إذا كنا في صفحة المدونة
-        else if (document.getElementById('blog-page')) {
+        } else if (document.getElementById('blog-page')) {
             filterBlogPosts(searchTerm);
         }
     });
 });
 
-// وظيفة فلترة بطاقات التطبيقات حسب كلمة البحث
 function filterAppCards(term) {
     const appCards = document.querySelectorAll('.app-card');
-    
     appCards.forEach(card => {
-        // البحث في عنوان التطبيق والوصف
         const title = card.querySelector('h4').textContent.toLowerCase();
         const description = card.querySelector('.app-description').textContent.toLowerCase();
-        
         if (title.includes(term) || description.includes(term)) {
             card.style.display = 'block';
         } else {
@@ -134,23 +117,82 @@ function filterAppCards(term) {
     });
 }
 
-// وظيفة فلترة مقالات المدونة حسب كلمة البحث
 function filterBlogPosts(term) {
     const blogPosts = document.querySelectorAll('.blog-post-card');
-    
     blogPosts.forEach(post => {
-        // البحث في عنوان المقال والمقتطف
+        // نستخدم flex هنا لأن التنسيق الأصلي للبطاقة هو flex
+        const displayStyle = window.innerWidth <= 900 ? 'column' : 'flex'; 
+        
         const title = post.querySelector('h3 a').textContent.toLowerCase();
         const excerpt = post.querySelector('.post-excerpt').textContent.toLowerCase();
         
         if (title.includes(term) || excerpt.includes(term)) {
-            post.style.display = 'flex'; // استخدام display: flex لأن هذا هو التنسيق الأصلي لبطاقة المقال
+            post.style.display = displayStyle;
         } else {
             post.style.display = 'none';
         }
     });
 }
 
+
 // =====================================
-// ملاحظة: لكي يعمل هذا المنطق، يجب أن يحتوي HTML على القيم الأولية الصحيحة
+// 5. منطق تغيير اللغة (Language Switcher & i18n)
 // =====================================
+const langSwitcher = document.getElementById('language-switcher');
+
+async function fetchTranslations(lang) {
+    try {
+        const response = await fetch(`assets/i18n/${lang}.json`);
+        if (!response.ok) {
+            throw new Error(`Could not load translations for ${lang}`);
+        }
+        return response.json();
+    } catch (error) {
+        console.error(error);
+        return {};
+    }
+}
+
+async function applyTranslations(lang) {
+    const translations = await fetchTranslations(lang);
+    const elementsToTranslate = document.querySelectorAll('[data-i18n]');
+    const body = document.body;
+    
+    // 1. تحديث النصوص
+    elementsToTranslate.forEach(element => {
+        const key = element.getAttribute('data-i18n');
+        // استخدام innerHTML لدعم علامات HTML داخل الترجمة (مثل <br>)
+        if (translations[key]) {
+            element.innerHTML = translations[key];
+        }
+    });
+
+    // 2. تحديث الاتجاه والتنسيق (RTL/LTR)
+    if (lang === 'ar') {
+        body.setAttribute('dir', 'rtl');
+        // يمكننا إضافة فئة خاصة لتعديلات CSS المعقدة
+        body.classList.remove('ltr-mode'); 
+    } else {
+        body.setAttribute('dir', 'ltr');
+        // إضافة فئة LTR-mode
+        body.classList.add('ltr-mode'); 
+    }
+}
+
+window.addEventListener('DOMContentLoaded', () => {
+    // تحديد اللغة الافتراضية
+    const storedLang = localStorage.getItem('siteLang') || 'ar'; 
+    if (langSwitcher) {
+        langSwitcher.value = storedLang; // تعيين قيمة القائمة المنسدلة
+        applyTranslations(storedLang);
+        
+        langSwitcher.addEventListener('change', (e) => {
+            const newLang = e.target.value;
+            localStorage.setItem('siteLang', newLang); // حفظ الاختيار
+            applyTranslations(newLang);
+        });
+    } else {
+        // إذا لم يكن هناك مبدل لغة (كما في صفحات فرعية لم نعدلها)، يتم تحميل الافتراضية
+        applyTranslations(storedLang); 
+    }
+});

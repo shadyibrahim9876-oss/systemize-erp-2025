@@ -3,38 +3,44 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Systemize ERP & Tax - Odoo Style</title>
-    <link rel="stylesheet" href="style.css">
-    </head>
-<body>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <title data-i18n="meta_title">Systemize ERP & Tax - الرئيسية</title>
+</head>
+<body dir="rtl">
 
     <header id="main-header">
         <nav class="container">
-            <div class="logo">Systemize ERP</div>
+            <a href="index.html" class="logo">Systemize</a>
             
             <ul class="nav-links">
-                <li><a href="#">المنتجات</a></li>
-                <li><a href="pricing.html">الأسعار</a></li>
-                <li><a href="#">الشركاء</a></li>
-                <li><a href="#">المدونة</a></li>
+                <li><a href="#" data-i18n="header_products">المنتجات</a></li>
+                <li><a href="apps.html" data-i18n="header_apps">التطبيقات</a></li>
+                <li><a href="pricing.html" data-i18n="header_pricing">الأسعار</a></li>
+                <li><a href="blog.html" data-i18n="header_blog">المدونة</a></li>
+                <li><a href="about.html" data-i18n="header_about">من نحن</a></li>
             </ul>
             
             <div class="header-actions">
-                <a href="#" class="btn btn-secondary">تسجيل الدخول</a>
-                <a href="#" class="btn btn-primary">ابدأ مجاناً</a>
+                <a href="#" class="btn btn-secondary" data-i18n="header_login">تسجيل الدخول</a>
+                <a href="#" class="btn btn-primary" data-i18n="header_start_free">ابدأ مجاناً</a>
             </div>
-            
+
             <button class="menu-toggle" aria-label="Toggle menu">☰</button>
         </nav>
     </header>
 
     <section id="hero" class="section-padding">
         <div class="container text-center">
-            <h1>أفضل نظام <span class="hero-highlight-orange">ERP</span> في العالم. <br> الآن لك!</h1>
-            <p class="lead">حلول متكاملة لإدارة أعمالك، الضرائب، والمخزون، <span class="hero-underline-blue">مصممة خصيصاً لمنطقتك</span>.</p>
+            <h1>
+                أفضل نظام <span class="hero-highlight-orange">ERP</span> في العالم. <br> الآن لك!
+            </h1>
+            <p class="lead">
+                حلول متكاملة لإدارة أعمالك، الضرائب، والمخزون، <span class="hero-underline-blue">مصممة خصيصاً لمنطقتك</span>.
+            </p>
             <div class="hero-actions">
-                <a href="#" class="btn btn-cta btn-xl">ابدأ مجاناً الآن</a>
-                <a href="#" class="btn btn-watch-video">▶️ شاهد فيديو تقديمي</a>
+                <a href="#" class="btn btn-cta btn-xl" data-i18n="hero_cta">ابدأ مجاناً الآن</a>
+                <a href="#" class="btn btn-watch-video" data-i18n="hero_watch_video">▶️ شاهد فيديو تقديمي</a>
             </div>
         </div>
         <div class="hero-media-placeholder">
@@ -43,7 +49,7 @@
 
     <section id="features" class="section-padding bg-light">
         <div class="container">
-            <h2 class="text-center">كل ما تحتاجه في مكان واحد (تطبيقات Odoo)</h2>
+            <h2 class="text-center" data-i18n="features_title">كل ما تحتاجه في مكان واحد (تطبيقات Odoo)</h2>
             <div class="feature-grid">
                 <div class="feature-card">المبيعات</div>
                 <div class="feature-card">المحاسبة</div>
@@ -63,18 +69,16 @@
         </div>
     </section>
 
-
     <section id="pre-footer-cta" class="bg-primary text-white text-center">
-        <h2>حوّل أعمالك إلى نظام متكامل اليوم.</h2>
-        <a href="#" class="btn btn-cta btn-xl btn-white-border">ابدأ تجربتك المجانية</a>
+        <h2 data-i18n="pre_footer_title">حوّل أعمالك إلى نظام متكامل اليوم.</h2>
+        <a href="#" class="btn btn-cta btn-xl btn-white-border" data-i18n="pre_footer_cta">ابدأ تجربتك المجانية</a>
     </section>
-
 
     <footer id="main-footer" class="bg-dark text-white section-padding">
         <div class="container footer-grid">
             <div class="footer-col logo-col">
                 <h3>Systemize ERP</h3>
-                <p>نظام متكامل، سهل، وفعال لجميع الشركات.</p>
+                <p data-i18n="footer_integrated_solution">نظام متكامل، سهل، وفعال لجميع الشركات.</p>
             </div>
             <div class="footer-col">
                 <h4>المنتجات</h4>
@@ -89,11 +93,19 @@
                 <ul><li>المدونة</li><li>الدعم</li><li>تواصل معنا</li></ul>
             </div>
         </div>
+        
+        <div class="language-switcher-container">
+            <select id="language-switcher" class="language-select">
+                <option value="ar" selected>العربية 🇸🇦</option>
+                <option value="en">English 🇺🇸</option>
+            </select>
+        </div>
+
         <div class="copyright text-center">
-            &copy; 2025 Systemize ERP. جميع الحقوق محفوظة.
+            &copy; 2025 Systemize ERP. <span data-i18n="footer_copyright">جميع الحقوق محفوظة.</span>
         </div>
     </footer>
 
-    <script src="app.js" defer></script>
+    <script src="assets/js/app.js" defer></script>
 </body>
 </html>
