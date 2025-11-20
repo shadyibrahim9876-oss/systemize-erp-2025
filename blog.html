@@ -3,8 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>المدونة - أخبار وحلول Systemize</title>
-    <link rel="stylesheet" href="style.css">
+    <title data-i18n="blog_meta_title">المدونة - أخبار وحلول Systemize</title>
+    
+    <link rel="stylesheet" href="assets/css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
@@ -14,16 +15,16 @@
             <a href="index.html" class="logo">Systemize</a>
             
             <ul class="nav-links">
-                <li><a href="index.html#features">الميزات</a></li>
-                <li><a href="apps.html">التطبيقات</a></li>
-                <li><a href="pricing.html">الأسعار</a></li>
-                <li><a href="blog.html">المدونة</a></li>
-                <li><a href="#">تواصل معنا</a></li>
+                <li><a href="index.html#features" data-i18n="header_products">المنتجات</a></li>
+                <li><a href="apps.html" data-i18n="header_apps">التطبيقات</a></li>
+                <li><a href="pricing.html" data-i18n="header_pricing">الأسعار</a></li>
+                <li class="active"><a href="blog.html" data-i18n="header_blog">المدونة</a></li>
+                <li><a href="#" data-i18n="header_contact">تواصل معنا</a></li>
             </ul>
             
             <div class="header-actions">
-                <a href="#" class="btn btn-secondary">تسجيل الدخول</a>
-                <a href="#" class="btn btn-primary">ابدأ مجاناً</a>
+                <a href="#" class="btn btn-secondary" data-i18n="header_login">تسجيل الدخول</a>
+                <a href="#" class="btn btn-primary" data-i18n="header_start_free">ابدأ مجاناً</a>
             </div>
 
             <button class="menu-toggle">☰</button>
@@ -34,42 +35,42 @@
         <div class="container blog-grid">
             
             <main class="main-content">
-                <h2>أحدث مقالات وحلول ERP</h2>
+                <h2 data-i18n="blog_latest_articles">أحدث مقالات وحلول ERP</h2>
                 
                 <article class="blog-post-card">
                     <div class="post-image-placeholder">
-                        <p>صورة المقال هنا</p>
+                        <p data-i18n="blog_image_placeholder">صورة المقال هنا</p>
                     </div>
                     <div class="post-info">
-                        <span class="post-category">إدارة مالية</span>
-                        <h3><a href="#">كيف تساعدك المحاسبة السحابية على تقليل النفقات؟</a></h3>
-                        <p class="post-excerpt">تعرف على أهم 5 مزايا لتحويل نظامك المحاسبي إلى السحابة وكيف يؤثر ذلك إيجاباً على تقاريرك المالية.</p>
+                        <span class="post-category" data-i18n="blog_category_finance">إدارة مالية</span>
+                        <h3><a href="#" data-i18n="blog_post1_title">كيف تساعدك المحاسبة السحابية على تقليل النفقات؟</a></h3>
+                        <p class="post-excerpt" data-i18n="blog_post1_excerpt">تعرف على أهم 5 مزايا لتحويل نظامك المحاسبي إلى السحابة وكيف يؤثر ذلك إيجاباً على تقاريرك المالية.</p>
                         <div class="post-meta">
-                            <span><i class="fas fa-calendar-alt"></i> 10 نوفمبر 2025</span>
-                            <span><i class="fas fa-tag"></i> #محاسبة #سحابة</span>
+                            <span data-i18n="blog_post1_date"><i class="fas fa-calendar-alt"></i> 10 نوفمبر 2025</span>
+                            <span data-i18n="blog_post1_tags"><i class="fas fa-tag"></i> #محاسبة #سحابة</span>
                         </div>
-                        <a href="#" class="btn btn-secondary">اقرأ المزيد</a>
+                        <a href="#" class="btn btn-secondary" data-i18n="blog_read_more">اقرأ المزيد</a>
                     </div>
                 </article>
 
                 <article class="blog-post-card">
                     <div class="post-image-placeholder">
-                        <p>صورة المقال هنا</p>
+                        <p data-i18n="blog_image_placeholder">صورة المقال هنا</p>
                     </div>
                     <div class="post-info">
-                        <span class="post-category">مبيعات و CRM</span>
-                        <h3><a href="#">5 خطوات لدمج نظام CRM مع المبيعات لزيادة الإيرادات</a></h3>
-                        <p class="post-excerpt">أصبح الـ CRM العمود الفقري للمبيعات الحديثة. إليك كيفية ربطه بسلاسة لتحقيق أهدافك.</p>
+                        <span class="post-category" data-i18n="blog_category_sales">مبيعات و CRM</span>
+                        <h3><a href="#" data-i18n="blog_post2_title">5 خطوات لدمج نظام CRM مع المبيعات لزيادة الإيرادات</a></h3>
+                        <p class="post-excerpt" data-i18n="blog_post2_excerpt">أصبح الـ CRM العمود الفقري للمبيعات الحديثة. إليك كيفية ربطه بسلاسة لتحقيق أهدافك.</p>
                         <div class="post-meta">
-                            <span><i class="fas fa-calendar-alt"></i> 1 نوفمبر 2025</span>
-                            <span><i class="fas fa-tag"></i> #CRM #مبيعات</span>
+                            <span data-i18n="blog_post2_date"><i class="fas fa-calendar-alt"></i> 1 نوفمبر 2025</span>
+                            <span data-i18n="blog_post2_tags"><i class="fas fa-tag"></i> #CRM #مبيعات</span>
                         </div>
-                        <a href="#" class="btn btn-secondary">اقرأ المزيد</a>
+                        <a href="#" class="btn btn-secondary" data-i18n="blog_read_more">اقرأ المزيد</a>
                     </div>
                 </article>
 
                 <div class="text-center load-more">
-                    <a href="#" class="btn btn-cta">تحميل المزيد من المقالات</a>
+                    <a href="#" class="btn btn-cta" data-i18n="blog_load_more">تحميل المزيد من المقالات</a>
                 </div>
 
             </main>
@@ -77,15 +78,15 @@
             <aside class="sidebar">
                 
                 <div class="widget search-widget">
-                    <h4>البحث في المدونة</h4>
+                    <h4 data-i18n="sidebar_search_title">البحث في المدونة</h4>
                     <div class="search-box">
                         <i class="fas fa-search"></i>
-                        <input type="text" placeholder="اكتب كلمة مفتاحية...">
+                        <input type="text" data-i18n-placeholder="sidebar_search_placeholder" placeholder="اكتب كلمة مفتاحية...">
                     </div>
                 </div>
 
                 <div class="widget categories-widget">
-                    <h4>تصنيفات المقالات</h4>
+                    <h4 data-i18n="sidebar_categories_title">تصنيفات المقالات</h4>
                     <ul>
                         <li><a href="#">إدارة مالية (12)</a></li>
                         <li><a href="#">المبيعات و CRM (8)</a></li>
@@ -95,9 +96,9 @@
                 </div>
                 
                 <div class="widget cta-widget bg-primary text-white text-center">
-                    <h4>هل أنت جاهز للبدء؟</h4>
-                    <p>ابدأ تجربتك المجانية لمدة 14 يوماً مع Systemize.</p>
-                    <a href="#" class="btn btn-white-border">ابدأ الآن</a>
+                    <h4 data-i18n="sidebar_cta_title">هل أنت جاهز للبدء؟</h4>
+                    <p data-i18n="sidebar_cta_text">ابدأ تجربتك المجانية لمدة 14 يوماً مع Systemize.</p>
+                    <a href="#" class="btn btn-white-border" data-i18n="sidebar_cta_button">ابدأ الآن</a>
                 </div>
 
             </aside>
@@ -110,9 +111,9 @@
                 
                 <div class="footer-col logo-col">
                     <h3>Systemize</h3>
-                    <p>الحل المتكامل لإدارة موارد مؤسستك (ERP) وتوسيع أعمالك في أي وقت وأي مكان.</p>
+                    <p data-i18n="footer_integrated_solution">الحل المتكامل لإدارة موارد مؤسستك (ERP) وتوسيع أعمالك في أي وقت وأي مكان.</p>
                 </div>
-
+                
                 <div class="footer-col">
                     <h4>المنتجات</h4>
                     <ul>
@@ -122,7 +123,6 @@
                         <li><a href="#">الموارد البشرية</a></li>
                     </ul>
                 </div>
-
                 <div class="footer-col">
                     <h4>الشركة</h4>
                     <ul>
@@ -132,7 +132,6 @@
                         <li><a href="#">تواصل معنا</a></li>
                     </ul>
                 </div>
-
                 <div class="footer-col">
                     <h4>الدعم</h4>
                     <ul>
@@ -143,13 +142,20 @@
                     </ul>
                 </div>
             </div>
+            
+            <div class="language-switcher-container">
+                <select id="language-switcher" class="language-select">
+                    <option value="ar" selected>العربية 🇸🇦</option>
+                    <option value="en">English 🇺🇸</option>
+                </select>
+            </div>
 
             <div class="text-center copyright">
-                <p>&copy; 2025 Systemize. جميع الحقوق محفوظة.</p>
+                <p>&copy; 2025 Systemize. <span data-i18n="footer_copyright">جميع الحقوق محفوظة.</span></p>
             </div>
         </div>
     </footer>
 
-    <script src="app.js"></script>
+    <script src="assets/js/app.js"></script>
 </body>
 </html>

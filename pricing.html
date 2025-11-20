@@ -3,8 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>الأسعار - Systemize ERP</title>
-    <link rel="stylesheet" href="style.css">
+    <title data-i18n="pricing_meta_title">الأسعار - Systemize ERP</title>
+    
+    <link rel="stylesheet" href="assets/css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
@@ -14,16 +15,16 @@
             <a href="index.html" class="logo">Systemize</a>
             
             <ul class="nav-links">
-                <li><a href="index.html#features">الميزات</a></li>
-                <li><a href="#">التطبيقات</a></li>
-                <li><a href="pricing.html">الأسعار</a></li>
-                <li><a href="#">الشراكات</a></li>
-                <li><a href="#">تواصل معنا</a></li>
+                <li><a href="index.html#features" data-i18n="header_products">المنتجات</a></li>
+                <li><a href="apps.html" data-i18n="header_apps">التطبيقات</a></li>
+                <li class="active"><a href="pricing.html" data-i18n="header_pricing">الأسعار</a></li>
+                <li><a href="#" data-i18n="header_partners">الشراكات</a></li>
+                <li><a href="#" data-i18n="header_contact">تواصل معنا</a></li>
             </ul>
             
             <div class="header-actions">
-                <a href="#" class="btn btn-secondary">تسجيل الدخول</a>
-                <a href="#" class="btn btn-primary">ابدأ مجاناً</a>
+                <a href="#" class="btn btn-secondary" data-i18n="header_login">تسجيل الدخول</a>
+                <a href="#" class="btn btn-primary" data-i18n="header_start_free">ابدأ مجاناً</a>
             </div>
 
             <button class="menu-toggle">☰</button>
@@ -32,72 +33,72 @@
 
     <section id="pricing" class="section-padding">
         <div class="container text-center">
-            <h2>أسعار مرنة تناسب حجم أعمالك</h2>
-            <p class="lead">اختر الخطة التي تتوافق مع احتياجاتك. يبدأ السعر بحسب عدد المستخدمين والتطبيقات المختارة.</p>
+            <h2 data-i18n="pricing_title">أسعار مرنة تناسب حجم أعمالك</h2>
+            <p class="lead" data-i18n="pricing_subtitle">اختر الخطة التي تتوافق مع احتياجاتك. يبدأ السعر بحسب عدد المستخدمين والتطبيقات المختارة.</p>
 
             <div class="pricing-toggle">
-                <span class="monthly active-toggle">شهرياً</span>
+                <span class="monthly active-toggle" data-i18n="pricing_monthly">شهرياً</span>
                 <label class="switch">
                     <input type="checkbox">
                     <span class="slider round"></span>
                 </label>
-                <span class="yearly">سنوياً <span class="badge">-20%</span></span>
+                <span class="yearly" data-i18n="pricing_yearly">سنوياً <span class="badge">-20%</span></span>
             </div>
 
             <div class="pricing-table">
                 
                 <div class="plan-card">
-                    <h3>الخطة المجانية</h3>
-                    <p class="price-subtitle">للبدء السريع والمشاريع الصغيرة</p>
+                    <h3 data-i18n="plan_free_title">الخطة المجانية</h3>
+                    <p class="price-subtitle" data-i18n="plan_free_subtitle">للبدء السريع والمشاريع الصغيرة</p>
                     <div class="price-value">
-                        <span class="currency">ر.س</span>
+                        <span class="currency" data-i18n="currency">ر.س</span>
                         <span class="value">0</span>
                         <span class="period">/ شهرياً</span>
                     </div>
-                    <a href="#" class="btn btn-cta btn-xl">ابدأ مجاناً</a>
+                    <a href="#" class="btn btn-cta btn-xl" data-i18n="pricing_cta_free">ابدأ مجاناً</a>
                     <ul class="features-list">
-                        <li><i class="fas fa-check-circle"></i> مستخدم واحد مجاني</li>
-                        <li><i class="fas fa-check-circle"></i> تطبيق أساسي واحد (CRM أو المحاسبة)</li>
-                        <li><i class="fas fa-check-circle"></i> دعم مجتمعي</li>
-                        <li class="disabled"><i class="fas fa-times-circle"></i> مساحة تخزين غير محدودة</li>
-                        <li class="disabled"><i class="fas fa-times-circle"></i> خادم مخصص</li>
+                        <li data-i18n="feature_user_one"><i class="fas fa-check-circle"></i> مستخدم واحد مجاني</li>
+                        <li data-i18n="feature_app_one"><i class="fas fa-check-circle"></i> تطبيق أساسي واحد</li>
+                        <li data-i18n="feature_support_community"><i class="fas fa-check-circle"></i> دعم مجتمعي</li>
+                        <li class="disabled" data-i18n="feature_storage_unlimited"><i class="fas fa-times-circle"></i> مساحة تخزين غير محدودة</li>
+                        <li class="disabled" data-i18n="feature_dedicated_server"><i class="fas fa-times-circle"></i> خادم مخصص</li>
                     </ul>
                 </div>
 
                 <div class="plan-card featured-plan">
-                    <div class="badge-featured">الأكثر شعبية</div>
-                    <h3>الخطة القياسية</h3>
-                    <p class="price-subtitle">لنمو الأعمال والفرق المتوسطة</p>
+                    <div class="badge-featured" data-i18n="badge_popular">الأكثر شعبية</div>
+                    <h3 data-i18n="plan_standard_title">الخطة القياسية</h3>
+                    <p class="price-subtitle" data-i18n="plan_standard_subtitle">لنمو الأعمال والفرق المتوسطة</p>
                     <div class="price-value">
-                        <span class="currency">ر.س</span>
+                        <span class="currency" data-i18n="currency">ر.س</span>
                         <span class="value">150</span>
                         <span class="period">/ مستخدم / شهرياً</span>
                     </div>
-                    <a href="#" class="btn btn-white-border btn-xl">اشترك الآن</a>
+                    <a href="#" class="btn btn-white-border btn-xl" data-i18n="pricing_cta_standard">اشترك الآن</a>
                     <ul class="features-list">
-                        <li><i class="fas fa-check-circle"></i> عدد غير محدود من المستخدمين</li>
-                        <li><i class="fas fa-check-circle"></i> 5 تطبيقات متقدمة</li>
-                        <li><i class="fas fa-check-circle"></i> 100 جيجابايت مساحة تخزين</li>
-                        <li><i class="fas fa-check-circle"></i> دعم تقني 24/7</li>
-                        <li class="disabled"><i class="fas fa-times-circle"></i> تخصيص متقدم</li>
+                        <li data-i18n="feature_users_unlimited"><i class="fas fa-check-circle"></i> عدد غير محدود من المستخدمين</li>
+                        <li data-i18n="feature_apps_five"><i class="fas fa-check-circle"></i> 5 تطبيقات متقدمة</li>
+                        <li data-i18n="feature_storage_100gb"><i class="fas fa-check-circle"></i> 100 جيجابايت مساحة تخزين</li>
+                        <li data-i18n="feature_support_247"><i class="fas fa-check-circle"></i> دعم تقني 24/7</li>
+                        <li class="disabled" data-i18n="feature_customization_advanced"><i class="fas fa-times-circle"></i> تخصيص متقدم</li>
                     </ul>
                 </div>
 
                 <div class="plan-card">
-                    <h3>خطة المؤسسات</h3>
-                    <p class="price-subtitle">للمنظمات الكبيرة ذات المتطلبات الخاصة</p>
+                    <h3 data-i18n="plan_enterprise_title">خطة المؤسسات</h3>
+                    <p class="price-subtitle" data-i18n="plan_enterprise_subtitle">للمنظمات الكبيرة ذات المتطلبات الخاصة</p>
                     <div class="price-value">
-                        <span class="currency">ر.س</span>
+                        <span class="currency" data-i18n="currency">ر.س</span>
                         <span class="value">250</span>
                         <span class="period">/ مستخدم / شهرياً</span>
                     </div>
-                    <a href="#" class="btn btn-cta btn-xl">اطلب عرض سعر</a>
+                    <a href="#" class="btn btn-cta btn-xl" data-i18n="pricing_cta_enterprise">اطلب عرض سعر</a>
                     <ul class="features-list">
-                        <li><i class="fas fa-check-circle"></i> عدد غير محدود من المستخدمين</li>
-                        <li><i class="fas fa-check-circle"></i> جميع التطبيقات</li>
-                        <li><i class="fas fa-check-circle"></i> مساحة تخزين غير محدودة</li>
-                        <li><i class="fas fa-check-circle"></i> دعم تقني متقدم وشخصي</li>
-                        <li><i class="fas fa-check-circle"></i> خادم مخصص</li>
+                        <li data-i18n="feature_users_unlimited"><i class="fas fa-check-circle"></i> عدد غير محدود من المستخدمين</li>
+                        <li data-i18n="feature_apps_all"><i class="fas fa-check-circle"></i> جميع التطبيقات</li>
+                        <li data-i18n="feature_storage_unlimited"><i class="fas fa-check-circle"></i> مساحة تخزين غير محدودة</li>
+                        <li data-i18n="feature_support_premium"><i class="fas fa-check-circle"></i> دعم تقني متقدم وشخصي</li>
+                        <li data-i18n="feature_dedicated_server"><i class="fas fa-check-circle"></i> خادم مخصص</li>
                     </ul>
                 </div>
 
@@ -111,9 +112,9 @@
                 
                 <div class="footer-col logo-col">
                     <h3>Systemize</h3>
-                    <p>الحل المتكامل لإدارة موارد مؤسستك (ERP) وتوسيع أعمالك في أي وقت وأي مكان.</p>
+                    <p data-i18n="footer_integrated_solution">الحل المتكامل لإدارة موارد مؤسستك (ERP) وتوسيع أعمالك في أي وقت وأي مكان.</p>
                 </div>
-
+                
                 <div class="footer-col">
                     <h4>المنتجات</h4>
                     <ul>
@@ -123,7 +124,6 @@
                         <li><a href="#">الموارد البشرية</a></li>
                     </ul>
                 </div>
-
                 <div class="footer-col">
                     <h4>الشركة</h4>
                     <ul>
@@ -133,7 +133,6 @@
                         <li><a href="#">تواصل معنا</a></li>
                     </ul>
                 </div>
-
                 <div class="footer-col">
                     <h4>الدعم</h4>
                     <ul>
@@ -144,13 +143,20 @@
                     </ul>
                 </div>
             </div>
+            
+            <div class="language-switcher-container">
+                <select id="language-switcher" class="language-select">
+                    <option value="ar" selected>العربية 🇸🇦</option>
+                    <option value="en">English 🇺🇸</option>
+                </select>
+            </div>
 
             <div class="text-center copyright">
-                <p>&copy; 2025 Systemize. جميع الحقوق محفوظة.</p>
+                <p>&copy; 2025 Systemize. <span data-i18n="footer_copyright">جميع الحقوق محفوظة.</span></p>
             </div>
         </div>
     </footer>
 
-    <script src="app.js"></script>
+    <script src="assets/js/app.js"></script>
 </body>
 </html>
