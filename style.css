@@ -26,6 +26,32 @@
 
 /*
 ====================================
+3. استدعاء الخطوط المخصصة (Custom Fonts)
+====================================
+*/
+
+/* الخط الرئيسي الذي يشبه خط Odoo (الخط اليدوي) */
+@font-face {
+    font-family: 'Odoo-Handwritten';
+    src: url('../fonts/WnznHAc5bAfYB2QRah7pcpNvOx-pjRV6eIWpYQ.woff2') format('woff2');
+    font-weight: 700;
+    font-style: normal;
+}
+
+/* تحديث الخط الأساسي للجسم (Body) لاستخدام خط النظام مع الخط العربي */
+body {
+    font-family: 'Tajawal', sans-serif; /* الخط العربي الذي اخترناه */
+    /* ... باقي تنسيقات الجسم ... */
+}
+
+/* استخدام الخط المخصص لجميع العناوين الرئيسية */
+h1, h2, h3 {
+    font-family: 'Odoo-Handwritten', 'Tajawal', sans-serif;
+    /* ... باقي تنسيقات العناوين ... */
+}
+
+/*
+====================================
 3. التنسيق العام والخطوط (Base Styles & Typography)
 ====================================
 */
@@ -414,6 +440,37 @@ ul {
 
 .hero-media-placeholder:before {
     content: "هنا سيتم وضع فيديو توضيحي (Odoo Mockup)";
+}
+/*
+====================================
+10. تنسيق قسم البطل (Hero Section) - تحديث تأثير Odoo
+====================================
+*/
+
+/* التأثير البرتقالي على العنوان (يجب تطبيقه على عنصر داخلي) */
+.hero-highlight-orange {
+    background: #ffc950; /* لون برتقالي فاتح */
+    padding: 2px 10px;
+    border-radius: 5px;
+    line-height: 1.5; /* لضمان ظهور التحديد بشكل جيد */
+    box-shadow: 2px 2px 0 0 rgba(0, 0, 0, 0.1);
+}
+
+/* التأثير الأزرق على الجملة الثانوية */
+.hero-underline-blue {
+    display: inline-block;
+    position: relative;
+    padding-bottom: 5px;
+}
+.hero-underline-blue:after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 100%;
+    height: 5px;
+    background-color: #5c62d6; /* لون أزرق */
+    border-radius: 5px;
 }
 /*
 ====================================
