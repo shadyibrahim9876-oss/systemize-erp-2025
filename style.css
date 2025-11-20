@@ -338,3 +338,349 @@ ul {
     font-size: 0.8rem;
     color: rgba(255, 255, 255, 0.5);
 }
+/*
+====================================
+10. تنسيق قسم البطل (Hero Section)
+====================================
+*/
+#hero {
+    background: #fdfefe; /* خلفية شبه بيضاء فاتحة */
+    padding: 100px 0; /* مسافة داخلية أكبر */
+    position: relative;
+    overflow: hidden; /* لإخفاء أي عناصر تتجاوز حدود القسم */
+}
+
+/* تنسيق النصوص والعناوين في قسم البطل */
+#hero h1 {
+    font-size: 3.5rem;
+    line-height: 1.2;
+    margin-bottom: 20px;
+    color: var(--color-dark);
+}
+
+#hero .lead {
+    font-size: 1.4rem;
+    color: #666;
+    max-width: 800px;
+    margin: 0 auto 30px auto; /* توسيط النص وتوفير مسافة سفلية */
+}
+
+/* الأزرار في قسم البطل */
+#hero .hero-actions {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px; /* مسافة بين الأزرار */
+    margin-bottom: 50px;
+}
+
+/* زر مشاهدة الفيديو */
+.btn-watch-video {
+    background: transparent;
+    color: var(--color-cta);
+    font-weight: 500;
+    font-size: 1.1rem;
+    padding: 12px 15px; /* تقليل حجم الحشو */
+    border: none;
+    display: flex;
+    align-items: center;
+}
+
+.btn-watch-video:hover {
+    color: var(--color-primary);
+}
+
+.btn-watch-video span {
+    margin-left: 8px; /* مسافة بين أيقونة الفيديو والنص */
+    font-size: 1.2rem;
+}
+
+/* مساحة وضع الوسائط (فيديو/صورة متحركة) */
+.hero-media-placeholder {
+    width: 90%;
+    max-width: 1000px;
+    height: 450px;
+    background-color: #eee; /* لون مؤقت للمساحة */
+    border-radius: 15px;
+    margin: 0 auto;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5rem;
+    color: #999;
+    border: 5px solid white;
+}
+
+.hero-media-placeholder:before {
+    content: "هنا سيتم وضع فيديو توضيحي (Odoo Mockup)";
+}
+/*
+====================================
+11. تنسيق الجوال والتجاوبية (Responsive Design)
+====================================
+*/
+
+/* تنسيق شريط التنقل الثابت عند التمرير */
+#main-header.scrolled {
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* تنسيق الجوال: يبدأ تطبيقه عندما تكون الشاشة أصغر من 900 بكسل */
+@media (max-width: 900px) {
+
+    /* إظهار زر قائمة الجوال */
+    .menu-toggle {
+        display: block;
+    }
+
+    /* إخفاء روابط التنقل الافتراضية */
+    #main-header .nav-links {
+        display: none;
+        flex-direction: column; /* ترتيب الروابط عمودياً */
+        position: absolute;
+        top: 65px; /* أسفل الهيدر */
+        right: 0;
+        width: 100%;
+        background-color: white;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        padding: 10px 0;
+        z-index: 999;
+        border-top: 1px solid var(--color-light);
+    }
+    
+    /* عرض الروابط عندما تكون فئة 'active' موجودة (يتم إضافتها بواسطة app.js) */
+    #main-header .nav-links.active {
+        display: flex;
+    }
+
+    #main-header .nav-links li {
+        text-align: right;
+        border-bottom: 1px solid var(--color-light);
+    }
+
+    #main-header .nav-links li a {
+        display: block;
+        padding: 15px 30px;
+        width: 100%;
+    }
+
+    /* إخفاء أزرار الإجراءات في الهيدر على الجوال لنقلها إلى داخل القائمة */
+    #main-header .header-actions {
+        display: none; 
+    }
+    
+    /* تنسيق قسم البطل */
+    #hero {
+        padding: 60px 0 40px 0;
+    }
+    #hero h1 {
+        font-size: 2.5rem; /* تصغير العنوان ليلائم شاشة الجوال */
+    }
+    #hero .hero-actions {
+        flex-direction: column; /* ترتيب الأزرار عمودياً */
+    }
+    
+    /* تنسيق مساحة الفيديو/الصور المتحركة */
+    .hero-media-placeholder {
+        height: 250px;
+    }
+
+    /* تنسيق قسم الـ Footer */
+    #main-footer .footer-grid {
+        grid-template-columns: 1fr; /* عمود واحد فقط في الـ Footer على الجوال */
+        text-align: center;
+    }
+    #main-footer .footer-col {
+        margin-bottom: 20px;
+    }
+}
+/*
+====================================
+12. تنسيق صفحة الأسعار (Pricing Page Styles)
+====================================
+*/
+#pricing {
+    background-color: var(--color-light);
+}
+
+/* زر التبديل (Toggle) بين الشهري والسنوي */
+.pricing-toggle {
+    display: inline-flex;
+    align-items: center;
+    background-color: white;
+    padding: 8px 15px;
+    border-radius: 50px;
+    margin-bottom: 40px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.pricing-toggle span {
+    font-weight: 700;
+    color: var(--color-text);
+    padding: 0 10px;
+    transition: color 0.3s;
+}
+
+.pricing-toggle .monthly.active-toggle,
+.pricing-toggle .yearly.active-toggle {
+    color: var(--color-primary);
+}
+
+.pricing-toggle .badge {
+    background-color: var(--color-cta);
+    color: white;
+    padding: 3px 8px;
+    border-radius: 15px;
+    font-size: 0.7rem;
+    font-weight: 700;
+    margin-right: 5px;
+}
+
+/* تصميم جدول الأسعار (Pricing Table) */
+.pricing-table {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin-top: 50px;
+}
+
+.plan-card {
+    background: white;
+    padding: 40px 30px;
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+    flex: 1;
+    max-width: 350px;
+    text-align: center;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.plan-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+}
+
+/* الخطة المميزة (Featured Plan) */
+.featured-plan {
+    background-color: var(--color-primary);
+    color: white;
+    position: relative;
+    transform: scale(1.05); /* جعلها أكبر قليلاً للفت الانتباه */
+}
+
+.featured-plan * {
+    color: inherit; /* لضمان أن كل النصوص داخل البطاقة تكون بيضاء */
+}
+
+.badge-featured {
+    position: absolute;
+    top: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--color-secondary);
+    color: white;
+    padding: 5px 15px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: 700;
+}
+
+.featured-plan h3, .featured-plan .price-subtitle {
+    color: white;
+}
+
+/* قيمة السعر */
+.price-value {
+    margin: 20px 0;
+    font-size: 3rem;
+    font-weight: 900;
+    line-height: 1;
+}
+
+.price-value .currency {
+    font-size: 1.5rem;
+    font-weight: 400;
+    vertical-align: top;
+    margin-right: 5px;
+}
+
+.price-value .period {
+    display: block;
+    font-size: 1rem;
+    font-weight: 400;
+    color: #999;
+}
+.featured-plan .price-value .period {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+/* قائمة الميزات */
+.features-list {
+    margin-top: 25px;
+    padding-top: 25px;
+    border-top: 1px solid #eee;
+    text-align: right;
+}
+.featured-plan .features-list {
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.features-list li {
+    margin-bottom: 15px;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+}
+
+.features-list i {
+    margin-left: 10px;
+    color: var(--color-cta);
+    font-size: 1.1rem;
+}
+.featured-plan .features-list i {
+    color: white;
+}
+
+.features-list li.disabled {
+    color: #ccc;
+    text-decoration: line-through;
+}
+
+.features-list li.disabled i {
+    color: #eee;
+}
+.featured-plan .features-list li.disabled {
+    color: rgba(255, 255, 255, 0.5);
+    text-decoration: none; /* إلغاء الشطب في البطاقة المميزة */
+}
+.featured-plan .features-list li.disabled i {
+    color: rgba(255, 255, 255, 0.5);
+}
+
+/*
+====================================
+13. التجاوبية الخاصة بصفحة الأسعار (Pricing Responsive)
+====================================
+*/
+@media (max-width: 1050px) {
+    /* على الشاشات المتوسطة، ترتيب بطاقات الأسعار عمودياً */
+    .pricing-table {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .plan-card {
+        max-width: 90%; /* جعل البطاقات تأخذ عرضاً أوسع */
+        margin-bottom: 30px;
+    }
+    
+    .featured-plan {
+        transform: scale(1); /* إلغاء التكبير في الجوال */
+    }
+
+    /* توسيط قائمة الميزات على الجوال */
+    .features-list li {
+        justify-content: center;
+    }
+}
