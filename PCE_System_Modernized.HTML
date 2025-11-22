@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PCE System Modernized</title>
+    
+    <!-- 1. Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- 2. Fonts (Cairo & Carrois Gothic) -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&family=Carrois+Gothic&display=swap" rel="stylesheet">
+    
+    <!-- 3. React & ReactDOM -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    
+    <!-- 4. Babel (to compile JSX in browser) -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <!-- 5. Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        body { font-family: 'Cairo', sans-serif; }
+        .font-carrois { font-family: 'Carrois Gothic', sans-serif; }
+        
+        /* Custom Scrollbar */
+        .custom-scrollbar::-webkit-scrollbar { width: 6px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: #0c0b2e; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #68AE00; border-radius: 10px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #5a9600; }
+
+        /* Animation */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fadeIn { animation: fadeIn 0.3s ease-out forwards; }
+    </style>
+
+    <script>
+        // Tailwind Config for Custom Colors
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#68AE00',
+                        secondary: '#FC8213',
+                        navy: '#0c0b2e',
+                        accent: '#337AB7',
+                        borderRed: '#910048'
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-[#fafafa] text-right">
+    
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState, useEffect, useMemo } = React;
+
+        // --- 0. CONFIGURATION ---
+        // ضع مفتاح الـ API الخاص بك هنا لتفعيل الذكاء الاصطناعي
+        const apiKey = ""; 
+
+        // --- HELPER: Lucide Icon Wrapper ---
+        const Icon = ({ name, size = 24, className = "" }) => {
+            const iconName = name.charAt(0).toUpperCase() + name.slice(1);
+            const [svgContent, setSvgContent] = useState(null);
+
+            useEffect(() => {
+                if (window.lucide && window.lucide.icons[iconName]) {
+                    const iconData = window.lucide.icons[iconName];
+                    // Convert lucide icon definition to SVG elements
+                    // iconData is [tag, attrs, children]
+                    // But the CDN version exposes createIcons, or icons object with simple structure
+                    // Let's use a simpler approach: render purely based on the object if available
+                    // Or simpler: Use standard Lucide tags if we were using a bundler.
+                    // Since we are in browser, we will construct SVG manually from the definition
+                    setSvgContent(iconData);
+                }
+            }, [name]);
+
+            if (!svgContent) return <span className="w-6 h-6 block"></span>;
+
+            return (
+                <svg 
+                    xmlns="http://www.w3.org/2000/svg" 
+                    width={size} 
+                    height={size} 
+                    viewBox="0 0 24 24" 
+                    fill="none" 
+                    stroke="currentColor" 
+                    strokeWidth="2" 
+                    strokeLinecap="round" 
+                    strokeLinejoin="round" 
+                    className={`lucide lucide-${name.toLowerCase()} ${className}`}
+                    dangerouslySetInnerHTML={{
+                        __html: svgContent.map(([tag, attrs]) => 
+                            `<${tag} ${Object.entries(attrs).map(([k, v]) => `${k}="${v}"`).join(' ')} />`
+                        ).join('')
+                    }}
+                />
+            );
+        };
+
+        // --- 1. MOCK DATA ---
+        const INITIAL_STORES_DATA = [
+            { id: 1002, name: "مخزن اكتوبر", code: "OCTOMER", address: "6 أكتوبر - المنطقة الصناعية", phone1: "01093793055", phone2: "", remarks: "مخزن رئيسي" },
+            { id: 4, name: "مخزن اسكندرية", code: "ALEX", address: "العجمي - الكيلو 21", phone1: "0123456789", phone2: "", remarks: "" },
+            { id: 3, name: "مخزن دمنهور", code: "DAM", address: "دمنهور - شارع الجمهورية", phone1: "045123456", phone2: "", remarks: "" },
+            { id: 2, name: "مخزن أبوحمص", code: "ABU", address: "أبو حمص - الطريق الزراعي", phone1: "", phone2: "", remarks: "" },
+            { id: 1, name: "المحل", code: "MAR", address: "الفرع الرئيسي", phone1: "04525152", phone2: "", remarks: "11" },
+            { id: 5, name: "مخزن طنطا", code: "TAN", address: "طنطا - شارع البحر", phone1: "040123456", phone2: "", remarks: "" },
+            { id: 6, name: "مخزن القاهرة", code: "CAI", address: "رمسيس", phone1: "022578963", phone2: "", remarks: "" },
+            { id: 7, name: "مخزن أسوان", code: "ASW", address: "السد العالي", phone1: "", phone2: "", remarks: "" },
+            { id: 8, name: "مخزن الغردقة", code: "HUR", address: "شارع شيراتون", phone1: "", phone2: "", remarks: "" },
+            { id: 9, name: "مخزن شرم الشيخ", code: "SHM", address: "خليج نعمة", phone1: "", phone2: "", remarks: "" },
+            { id: 10, name: "مخزن المنصورة", code: "MAN", address: "شارع الجيش", phone1: "", phone2: "", remarks: "" },
+            { id: 11, name: "مخزن بورسعيد", code: "PSD", address: "شارع 23 يوليو", phone1: "", phone2: "", remarks: "" },
+        ];
+
+        // --- 2. HELPER FUNCTIONS ---
+        async function callGeminiAPI(prompt, jsonMode = false) {
+            if (!apiKey) {
+                alert("الرجاء إدخال مفتاح API في الكود أولاً");
+                return "";
+            }
+            try {
+                const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
+                const generationConfig = jsonMode ? { responseMimeType: "application/json" } : undefined;
+
+                for (let attempt = 0; attempt < 3; attempt++) {
+                    try {
+                        const response = await fetch(url, {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({
+                                contents: [{ parts: [{ text: prompt }] }],
+                                generationConfig: generationConfig
+                            })
+                        });
+
+                        if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+                        const data = await response.json();
+                        return data.candidates?.[0]?.content?.parts?.[0]?.text || "";
+                    } catch (e) {
+                        if (attempt === 2) throw e;
+                        await new Promise(resolve => setTimeout(resolve, 1000));
+                    }
+                }
+                return "";
+            } catch (error) {
+                console.error("Gemini API Error:", error);
+                return "";
+            }
+        }
+
+        // --- 3. COMPONENTS ---
+
+        // AI Modal
+        const AIModal = ({ isOpen, onClose, content, isLoading, title }) => {
+            if (!isOpen) return null;
+            return (
+                <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm animate-fadeIn">
+                    <div className="bg-white rounded-xl shadow-2xl w-full max-w-2xl overflow-hidden border border-primary/30 flex flex-col max-h-[80vh]">
+                        <div className="bg-gradient-to-r from-navy to-slate-900 p-4 flex justify-between items-center text-white">
+                            <div className="flex items-center gap-2">
+                                <Icon name="Sparkles" className="text-primary animate-pulse" size={20} />
+                                <h3 className="font-bold text-lg">{title}</h3>
+                            </div>
+                            <button onClick={onClose} className="hover:bg-white/10 p-1 rounded transition-colors">
+                                <Icon name="X" size={20} />
+                            </button>
+                        </div>
+                        <div className="p-6 overflow-y-auto flex-1 text-gray-700 leading-relaxed whitespace-pre-line font-cairo">
+                            {isLoading ? (
+                                <div className="flex flex-col items-center justify-center py-10 gap-4 text-gray-500">
+                                    <Icon name="Loader2" className="animate-spin text-primary" size={40} />
+                                    <p>جاري تحليل البيانات بواسطة الذكاء الاصطناعي...</p>
+                                </div>
+                            ) : (
+                                content
+                            )}
+                        </div>
+                        <div className="p-4 border-t bg-gray-50 flex justify-end">
+                            <button onClick={onClose} className="bg-navy text-white px-6 py-2 rounded hover:bg-slate-900 transition-colors font-bold">إغلاق</button>
+                        </div>
+                    </div>
+                </div>
+            );
+        };
+
+        // Store Form Modal
+        const StoreFormModal = ({ isOpen, onClose, onSave, initialData }) => {
+            const [formData, setFormData] = useState({ name: '', code: '', address: '', phone1: '', phone2: '', remarks: '' });
+            const [smartInput, setSmartInput] = useState('');
+            const [isSmartLoading, setIsSmartLoading] = useState(false);
+            const [showSmartInput, setShowSmartInput] = useState(false);
+
+            useEffect(() => {
+                if (initialData) setFormData(initialData);
+                else setFormData({ name: '', code: '', address: '', phone1: '', phone2: '', remarks: '' });
+                setSmartInput(''); setShowSmartInput(false);
+            }, [initialData, isOpen]);
+
+            if (!isOpen) return null;
+
+            const handleChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
+
+            const handleSmartParse = async () => {
+                if (!smartInput.trim()) return;
+                setIsSmartLoading(true);
+                const prompt = `Extract store information from this text into JSON format with keys: name, code, address, phone1, remarks. Text: "${smartInput}". Example JSON: {"name": "...", "code": "...", "address": "...", "phone1": "...", "remarks": "..."}`;
+                try {
+                    const result = await callGeminiAPI(prompt, true);
+                    const parsed = JSON.parse(result);
+                    setFormData(prev => ({ ...prev, ...parsed }));
+                    setShowSmartInput(false);
+                } catch (error) { alert("لم أتمكن من فهم النص."); } 
+                finally { setIsSmartLoading(false); }
+            };
+
+            return (
+                <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm animate-fadeIn font-cairo">
+                    <div className="bg-white rounded-xl shadow-2xl w-full max-w-lg overflow-hidden border border-primary/30 flex flex-col max-h-[90vh]">
+                        <div className="bg-gradient-to-r from-navy to-slate-900 p-4 flex justify-between items-center text-white">
+                            <h3 className="font-bold text-lg">{initialData ? 'تعديل بيانات المخزن' : 'إضافة مخزن جديد'}</h3>
+                            <button onClick={onClose} className="hover:bg-white/10 p-1 rounded"><Icon name="X" size={20} /></button>
+                        </div>
+                        <div className="p-6 overflow-y-auto flex-1 space-y-4">
+                            {!initialData && (
+                                <div className="bg-indigo-50 p-3 rounded-lg border border-indigo-100">
+                                    <button onClick={() => setShowSmartInput(!showSmartInput)} className="flex items-center gap-2 text-indigo-700 font-bold text-sm hover:text-indigo-900 w-full justify-between">
+                                        <span className="flex items-center gap-2"><Icon name="Wand2" size={16} /> إدخال ذكي (AI)</span>
+                                        <Icon name="ChevronDown" className={`transition-transform ${showSmartInput ? 'rotate-180' : ''}`} size={16} />
+                                    </button>
+                                    {showSmartInput && (
+                                        <div className="mt-3 animate-fadeIn">
+                                            <textarea className="w-full p-2 border border-indigo-200 rounded text-sm focus:ring-2 focus:ring-indigo-500 outline-none" rows={3} placeholder="مثال: مخزن جديد في التجمع الخامس شارع التسعين تليفون 01000000" value={smartInput} onChange={(e) => setSmartInput(e.target.value)} />
+                                            <button onClick={handleSmartParse} disabled={isSmartLoading || !smartInput} className="mt-2 w-full bg-indigo-600 text-white py-1.5 rounded text-sm font-bold hover:bg-indigo-700 disabled:opacity-50 flex items-center justify-center gap-2">
+                                                {isSmartLoading ? <Icon name="Loader2" className="animate-spin" size={16} /> : <Icon name="Sparkles" size={16} />} استخراج البيانات
+                                            </button>
+                                        </div>
+                                    )}
+                                </div>
+                            )}
+                            <div className="grid grid-cols-2 gap-4">
+                                <div className="col-span-2"><label className="block text-sm font-bold text-gray-700 mb-1">اسم المخزن *</label><input name="name" value={formData.name} onChange={handleChange} className="w-full border border-gray-300 p-2 rounded focus:border-primary outline-none" required /></div>
+                                <div><label className="block text-sm font-bold text-gray-700 mb-1">كود المخزن</label><input name="code" value={formData.code} onChange={handleChange} className="w-full border border-gray-300 p-2 rounded focus:border-primary outline-none" /></div>
+                                <div><label className="block text-sm font-bold text-gray-700 mb-1">تليفون 1</label><input name="phone1" value={formData.phone1} onChange={handleChange} className="w-full border border-gray-300 p-2 rounded focus:border-primary outline-none" /></div>
+                                <div className="col-span-2"><label className="block text-sm font-bold text-gray-700 mb-1">العنوان</label><input name="address" value={formData.address} onChange={handleChange} className="w-full border border-gray-300 p-2 rounded focus:border-primary outline-none" /></div>
+                                <div className="col-span-2"><label className="block text-sm font-bold text-gray-700 mb-1">ملاحظات</label><textarea name="remarks" value={formData.remarks} onChange={handleChange} rows={2} className="w-full border border-gray-300 p-2 rounded focus:border-primary outline-none" /></div>
+                            </div>
+                        </div>
+                        <div className="p-4 border-t bg-gray-50 flex justify-end gap-2">
+                            <button onClick={onClose} className="px-4 py-2 text-gray-600 hover:bg-gray-200 rounded font-bold transition-colors">إلغاء</button>
+                            <button onClick={() => onSave(formData)} className="bg-primary text-white px-6 py-2 rounded hover:bg-[#5a9600] transition-colors font-bold flex items-center gap-2"><Icon name="Save" size={18} /> حفظ</button>
+                        </div>
+                    </div>
+                </div>
+            );
+        };
+
+        // DataTable
+        const DataTable = ({ columns, data, onEdit, onDelete, title, aiAction }) => {
+            const [currentPage, setCurrentPage] = useState(1);
+            const [rowsPerPage, setRowsPerPage] = useState(10);
+            const [sortConfig, setSortConfig] = useState(null);
+            const [selectedRows, setSelectedRows] = useState([]);
+
+            const sortedData = useMemo(() => {
+                let sortableItems = [...data];
+                if (sortConfig !== null) {
+                    sortableItems.sort((a, b) => {
+                        if (a[sortConfig.key] < b[sortConfig.key]) return sortConfig.direction === 'asc' ? -1 : 1;
+                        if (a[sortConfig.key] > b[sortConfig.key]) return sortConfig.direction === 'asc' ? 1 : -1;
+                        return 0;
+                    });
+                }
+                return sortableItems;
+            }, [data, sortConfig]);
+
+            const indexOfLastRow = currentPage * rowsPerPage;
+            const indexOfFirstRow = indexOfLastRow - rowsPerPage;
+            const currentRows = sortedData.slice(indexOfFirstRow, indexOfLastRow);
+            const totalPages = Math.ceil(data.length / rowsPerPage);
+
+            const requestSort = (key) => {
+                let direction = 'asc';
+                if (sortConfig && sortConfig.key === key && sortConfig.direction === 'asc') direction = 'desc';
+                setSortConfig({ key, direction });
+            };
+
+            const handleSelectAll = (e) => {
+                if (e.target.checked) setSelectedRows(currentRows.map(row => row.id));
+                else setSelectedRows([]);
+            };
+
+            const handleSelectRow = (id) => {
+                if (selectedRows.includes(id)) setSelectedRows(selectedRows.filter(rowId => rowId !== id));
+                else setSelectedRows([...selectedRows, id]);
+            };
+
+            return (
+                <div className="bg-white rounded shadow-sm border border-gray-200 overflow-hidden font-cairo rtl">
+                    <div className="p-4 border-b border-gray-200 flex flex-wrap justify-between items-center bg-gray-50 gap-4">
+                        <div className="flex items-center gap-4">
+                            <h3 className="text-lg font-bold text-navy">{title}</h3>
+                            {selectedRows.length > 0 && onDelete ? (
+                                <button onClick={() => { onDelete(selectedRows); setSelectedRows([]); }} className="flex items-center gap-2 bg-red-100 text-red-600 px-3 py-1.5 rounded-full text-sm font-bold hover:bg-red-200 transition-colors animate-fadeIn">
+                                    <Icon name="Trash2" size={16} /> <span>حذف ({selectedRows.length})</span>
+                                </button>
+                            ) : (
+                                aiAction && (
+                                    <button onClick={aiAction} className="flex items-center gap-2 bg-gradient-to-r from-primary to-[#5a9600] text-white px-3 py-1.5 rounded-full text-sm font-bold shadow-sm hover:shadow-md transition-all transform hover:-translate-y-0.5">
+                                        <Icon name="Sparkles" size={16} /> <span>تحليل ذكي</span>
+                                    </button>
+                                )
+                            )}
+                        </div>
+                        <div className="flex gap-2">
+                            <select className="border border-gray-300 rounded px-2 py-1 text-sm focus:outline-none focus:border-primary" value={rowsPerPage} onChange={(e) => setRowsPerPage(Number(e.target.value))}>
+                                <option value={5}>5</option><option value={10}>10</option><option value={50}>50</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div className="overflow-x-auto">
+                        <table className="w-full text-right border-collapse">
+                            <thead className="bg-gray-100 text-gray-700 text-sm uppercase font-semibold">
+                                <tr>
+                                    <th className="p-3 w-10 text-center border-b border-gray-200">
+                                        <input type="checkbox" className="w-4 h-4 text-primary focus:ring-primary border-gray-300 rounded cursor-pointer accent-primary" onChange={handleSelectAll} checked={currentRows.length > 0 && selectedRows.length === currentRows.length} />
+                                    </th>
+                                    {columns.map((col) => (
+                                        <th key={col.key} className={`p-3 border-b border-gray-200 whitespace-nowrap ${col.sortable ? 'cursor-pointer hover:bg-gray-200 transition-colors' : ''}`} onClick={() => col.sortable && requestSort(col.key)}>
+                                            <div className="flex items-center gap-1">{col.label} {col.sortable && <span className="text-gray-400">{sortConfig?.key === col.key ? (sortConfig.direction === 'asc' ? <Icon name="ArrowUp" size={14} className="text-primary" /> : <Icon name="ArrowDown" size={14} className="text-primary" />) : <Icon name="ArrowUpDown" size={14} />}</span>}</div>
+                                        </th>
+                                    ))}
+                                    <th className="p-3 border-b border-gray-200 w-20"></th>
+                                </tr>
+                            </thead>
+                            <tbody className="text-gray-600 text-sm">
+                                {currentRows.map((row) => (
+                                    <tr key={row.id} className={`hover:bg-[#e7f7f0] transition-colors border-b border-gray-100 group cursor-pointer ${selectedRows.includes(row.id) ? 'bg-green-50' : ''}`} onDoubleClick={() => onEdit(row)}>
+                                        <td className="p-3 text-center">
+                                            <input type="checkbox" className="w-4 h-4 text-primary border-gray-300 rounded cursor-pointer accent-primary" checked={selectedRows.includes(row.id)} onChange={() => handleSelectRow(row.id)} />
+                                        </td>
+                                        {columns.map((col) => <td key={`${row.id}-${col.key}`} className="p-3">{row[col.key]}</td>)}
+                                        <td className="p-3 text-center"><button onClick={() => onEdit(row)} className="text-blue-500 hover:text-blue-700 opacity-0 group-hover:opacity-100 transition-opacity px-2 font-bold">تعديل</button></td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    </div>
+                    <div className="p-4 border-t border-gray-200 bg-gray-50 flex flex-col sm:flex-row justify-between items-center gap-4">
+                        <span className="text-sm text-gray-500">عرض {indexOfFirstRow + 1} إلى {Math.min(indexOfLastRow, data.length)} من أصل {data.length} سجل</span>
+                        <div className="flex items-center gap-1 rtl:flex-row-reverse">
+                            <button className="p-1 rounded hover:bg-gray-200 disabled:opacity-50" onClick={() => setCurrentPage(1)} disabled={currentPage === 1}><Icon name="ChevronsRight" size={18} /></button>
+                            <button className="p-1 rounded hover:bg-gray-200 disabled:opacity-50" onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))} disabled={currentPage === 1}><Icon name="ChevronRight" size={18} /></button>
+                            <div className="flex gap-1 mx-2">
+                                {Array.from({ length: totalPages }, (_, i) => i + 1).map(number => (
+                                    <button key={number} onClick={() => setCurrentPage(number)} className={`w-8 h-8 text-xs rounded-full flex items-center justify-center transition-colors ${currentPage === number ? 'bg-primary text-white font-bold' : 'bg-white border border-gray-300 hover:bg-gray-100 text-gray-700'}`}>{number}</button>
+                                ))}
+                            </div>
+                            <button className="p-1 rounded hover:bg-gray-200 disabled:opacity-50" onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))} disabled={currentPage === totalPages}><Icon name="ChevronLeft" size={18} /></button>
+                            <button className="p-1 rounded hover:bg-gray-200 disabled:opacity-50" onClick={() => setCurrentPage(totalPages)} disabled={currentPage === totalPages}><Icon name="ChevronsLeft" size={18} /></button>
+                        </div>
+                    </div>
+                </div>
+            );
+        };
+
+        // --- 4. LAYOUT COMPONENTS ---
+        const Header = ({ onToggleSidebar }) => (
+            <header className="sticky top-0 z-30 bg-[#9ad4b6] border-b-4 border-borderRed h-[65px] flex items-center justify-between px-4 shadow-sm">
+                <div className="flex items-center gap-4">
+                    <div className="flex items-center gap-2 cursor-pointer group">
+                        <img src="https://ui-avatars.com/api/?name=Tarek&background=FC8213&color=fff" alt="Profile" className="w-10 h-10 rounded-full border-2 border-white shadow-sm" />
+                        <div className="hidden md:block text-[#85144B]">
+                            <p className="font-bold text-sm leading-none">Tarek</p>
+                            <p className="text-xs opacity-80">Admin</p>
+                        </div>
+                        <Icon name="ChevronDown" size={14} className="text-[#85144B]" />
+                    </div>
+                    <button className="hidden md:block bg-primary hover:bg-[#5a9600] text-white px-4 py-1.5 rounded text-sm font-bold shadow transition-colors">عرض الشاشات</button>
+                </div>
+                <div className="flex items-center gap-4 flex-row-reverse">
+                    <button onClick={onToggleSidebar} className="text-[#85144B] p-1 hover:bg-white/30 rounded"><Icon name="Menu" size={24} /></button>
+                    <div className="hidden md:flex items-center gap-4 border-l border-[#85144B]/20 pl-4 ml-2">
+                        <div className="relative cursor-pointer"><Icon name="Bell" size={20} className="text-gray-700" /><span className="absolute -top-2 -right-2 bg-accent text-white text-[10px] w-4 h-4 flex items-center justify-center rounded-full">3</span></div>
+                        <div className="relative cursor-pointer"><Icon name="Mail" size={20} className="text-gray-700" /><span className="absolute -top-2 -right-2 bg-secondary text-white text-[10px] w-4 h-4 flex items-center justify-center rounded-full">3</span></div>
+                        <div className="relative cursor-pointer"><Icon name="CheckSquare" size={20} className="text-gray-700" /><span className="absolute -top-2 -right-2 bg-primary text-white text-[10px] w-4 h-4 flex items-center justify-center rounded-full">0</span></div>
+                    </div>
+                    <div className="bg-white/50 px-3 py-1 rounded text-[#85144B] font-bold text-sm hidden sm:block">22/11/2025</div>
+                    <div className="hidden lg:block"><select className="bg-white/50 border-none rounded text-sm text-[#85144B] font-bold px-2 py-1 focus:ring-0 cursor-pointer"><option>الفرع الرئيسي</option><option>فرع الاسكندرية</option></select></div>
+                </div>
+            </header>
+        );
+
+        const SidebarItem = ({ icon, label, active, onClick }) => (
+            <li onClick={onClick} className={`flex items-center gap-3 px-4 py-3 cursor-pointer transition-all duration-200 ${active ? 'bg-[#2b303a] text-white border-r-4 border-[#fdbb30]' : 'text-[#aaabae] hover:text-[#fdbb30] hover:bg-[#151725]'}`}>
+                <Icon name={icon} size={20} /><span className="font-cairo text-[15px] font-medium whitespace-nowrap">{label}</span>
+            </li>
+        );
+
+        const Sidebar = ({ isOpen, activePage, setActivePage }) => {
+            const menuItems = [
+                { id: 'dashboard', label: 'الرئيسية', icon: 'LayoutDashboard' },
+                { id: 'master-data', label: 'بيانات رئيسية', icon: 'Database' },
+                { id: 'finance', label: 'شئون مالية', icon: 'Banknote' },
+                { id: 'transport', label: 'النقل', icon: 'Truck' },
+                { id: 'files', label: 'الملفات', icon: 'FileText' },
+                { id: 'accounts', label: 'الحسابات', icon: 'Calculator' },
+                { id: 'purchasing', label: 'المشتريات', icon: 'ShoppingCart' },
+                { id: 'sales', label: 'المبيعات', icon: 'TrendingUp' },
+                { id: 'items', label: 'الأصناف', icon: 'Box' },
+                { id: 'settings', label: 'ضبط', icon: 'Settings' },
+                { id: 'reports', label: 'التقارير', icon: 'FileBarChart' },
+                { id: 'crm', label: 'CRM', icon: 'Users' },
+            ];
+            return (
+                <aside className={`fixed right-0 top-0 h-full bg-navy z-40 transition-all duration-300 ease-in-out ${isOpen ? 'w-[240px]' : 'w-[65px]'} overflow-hidden shadow-2xl`}>
+                    <div className={`h-[65px] flex items-center justify-center bg-navy border-b border-gray-700 transition-all ${isOpen ? 'opacity-100' : 'opacity-0'}`}><h1 className="text-primary font-bold text-lg tracking-wider">PCE SYSTEM</h1></div>
+                    <ul className="mt-4 flex flex-col gap-1 pb-20 overflow-y-auto h-[calc(100%-65px)] custom-scrollbar">{menuItems.map((item) => (<SidebarItem key={item.id} icon={item.icon} label={isOpen ? item.label : ''} active={activePage === item.id} onClick={() => setActivePage(item.id)} />))}</ul>
+                </aside>
+            );
+        };
+
+        // --- 5. PAGES ---
+        const Dashboard = () => (
+            <div className="animate-fadeIn">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                    <div className="bg-primary p-6 rounded shadow hover:bg-[#3C3C3C] transition-all cursor-pointer group text-white relative overflow-hidden">
+                        <div className="relative z-10"><h3 className="text-4xl font-bold mb-2 font-carrois">150</h3><h4 className="text-lg opacity-90">مستندات جديدة</h4><p className="text-sm mt-2 opacity-75">تمت إضافتها اليوم</p></div>
+                        <div className="absolute top-4 left-4 bg-white/20 p-3 rounded-full group-hover:scale-110 transition-transform"><Icon name="FileText" size={32} className="text-white" /></div>
+                    </div>
+                    <div className="bg-secondary p-6 rounded shadow hover:bg-[#3C3C3C] transition-all cursor-pointer group text-white relative overflow-hidden">
+                        <div className="relative z-10"><h3 className="text-4xl font-bold mb-2 font-carrois">1,250</h3><h4 className="text-lg opacity-90">زائر اليوم</h4><p className="text-sm mt-2 opacity-75">زيادة بنسبة 10%</p></div>
+                        <div className="absolute top-4 left-4 bg-white/20 p-3 rounded-full group-hover:scale-110 transition-transform"><Icon name="Eye" size={32} className="text-white" /></div>
+                    </div>
+                    <div className="bg-accent p-6 rounded shadow hover:bg-[#3C3C3C] transition-all cursor-pointer group text-white relative overflow-hidden">
+                        <div className="relative z-10"><h3 className="text-4xl font-bold mb-2 font-carrois">50</h3><h4 className="text-lg opacity-90">رسائل جديدة</h4><p className="text-sm mt-2 opacity-75">تحتاج للرد</p></div>
+                        <div className="absolute top-4 left-4 bg-white/20 p-3 rounded-full group-hover:scale-110 transition-transform"><Icon name="Mail" size={32} className="text-white" /></div>
+                    </div>
+                </div>
+                <div className="bg-white min-h-[400px] rounded shadow-sm flex flex-col items-center justify-center p-10 text-center border border-gray-200">
+                    <div className="w-48 h-48 rounded-full border-8 border-navy flex items-center justify-center mb-6"><div className="text-navy text-6xl font-bold tracking-tighter">PCE</div></div>
+                    <h1 className="text-4xl font-bold text-navy mb-2">PRO CODERZ EGY</h1>
+                    <h2 className="text-2xl text-primary font-bold">DR.ALI CLINIC</h2>
+                </div>
+            </div>
+        );
+
+        const StoresPage = () => {
+            const [stores, setStores] = useState(INITIAL_STORES_DATA);
+            const [isAiModalOpen, setAiModalOpen] = useState(false);
+            const [aiContent, setAiContent] = useState("");
+            const [isAiLoading, setIsAiLoading] = useState(false);
+            const [isFormOpen, setIsFormOpen] = useState(false);
+            const [editingStore, setEditingStore] = useState(null);
+
+            const columns = [
+                { key: 'name', label: 'الاسم', sortable: true },
+                { key: 'code', label: 'كود', sortable: true },
+                { key: 'address', label: 'العنوان', sortable: true },
+                { key: 'phone1', label: 'تليفون 1', sortable: true },
+                { key: 'phone2', label: 'تليفون 2', sortable: true },
+                { key: 'remarks', label: 'ملاحظات', sortable: true },
+            ];
+
+            const handleAddNew = () => { setEditingStore(null); setIsFormOpen(true); };
+            const handleEdit = (item) => { setEditingStore(item); setIsFormOpen(true); };
+            const handleSave = (formData) => {
+                if (editingStore) setStores(stores.map(s => s.id === editingStore.id ? { ...formData, id: editingStore.id } : s));
+                else setStores([...stores, { ...formData, id: Date.now() }]);
+                setIsFormOpen(false);
+            };
+            const handleDelete = (ids) => { if (confirm(`هل أنت متأكد من حذف ${ids.length} عناصر؟`)) setStores(stores.filter(s => !ids.includes(s.id))); };
+            
+            const handleAiAnalysis = async () => {
+                setAiModalOpen(true); setIsAiLoading(true); setAiContent("");
+                const prompt = `بصفتك مساعد ذكي لنظام ERP، قم بتحليل بيانات المخازن التالية باللغة العربية:\n${JSON.stringify(stores)}\nالمطلوب: 1. ملخص سريع. 2. مشاكل البيانات. 3. اقتراحات تحسين.`;
+                const result = await callGeminiAPI(prompt);
+                setAiContent(result); setIsAiLoading(false);
+            };
+
+            return (
+                <div className="animate-fadeIn space-y-4">
+                    <div className="flex justify-between items-center bg-white p-4 rounded shadow-sm border border-gray-200">
+                        <h2 className="text-xl font-bold text-navy flex items-center gap-2"><Icon name="Database" size={24} className="text-primary" /> إدارة المخازن</h2>
+                        <button onClick={handleAddNew} className="bg-primary hover:bg-[#5a9600] text-white px-4 py-2 rounded flex items-center gap-2 font-bold shadow transition-colors"><Icon name="Plus" size={18} /> إضافة مخزن جديد</button>
+                    </div>
+                    <DataTable title="قائمة المخازن" columns={columns} data={stores} onEdit={handleEdit} onDelete={handleDelete} aiAction={handleAiAnalysis} />
+                    <AIModal isOpen={isAiModalOpen} onClose={() => setAiModalOpen(false)} content={aiContent} isLoading={isAiLoading} title="المحلل الذكي للمخازن" />
+                    <StoreFormModal isOpen={isFormOpen} onClose={() => setIsFormOpen(false)} onSave={handleSave} initialData={editingStore} />
+                </div>
+            );
+        };
+
+        // --- 6. MAIN APP ---
+        const App = () => {
+            const [sidebarOpen, setSidebarOpen] = useState(true);
+            const [activePage, setActivePage] = useState('dashboard');
+            useEffect(() => {
+                const handleResize = () => { if (window.innerWidth < 1024) setSidebarOpen(false); else setSidebarOpen(true); };
+                window.addEventListener('resize', handleResize); handleResize(); return () => window.removeEventListener('resize', handleResize);
+            }, []);
+            return (
+                <div className="min-h-screen bg-[#fafafa] font-cairo text-right rtl flex flex-col" dir="rtl">
+                    <Header onToggleSidebar={() => setSidebarOpen(!sidebarOpen)} />
+                    <Sidebar isOpen={sidebarOpen} activePage={activePage} setActivePage={setActivePage} />
+                    <main className={`flex-1 p-6 transition-all duration-300 ease-in-out mt-4 ${sidebarOpen ? 'mr-[240px]' : 'mr-[65px]'}`}>
+                        {activePage === 'dashboard' && <Dashboard />}
+                        {activePage === 'master-data' && <StoresPage />}
+                        {activePage !== 'dashboard' && activePage !== 'master-data' && (
+                            <div className="flex items-center justify-center h-[500px] text-gray-400 flex-col">
+                                <Icon name="Settings" size={64} className="mb-4 opacity-20" />
+                                <h2 className="text-2xl font-bold opacity-50">جاري العمل على هذه الصفحة...</h2>
+                                <p>اضغط على "بيانات رئيسية" لرؤية جدول المخازن</p>
+                            </div>
+                        )}
+                    </main>
+                </div>
+            );
+        };
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
+</body>
+</html>
